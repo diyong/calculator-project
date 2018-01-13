@@ -103,7 +103,6 @@ btnDecimal.addEventListener("click", () => {
 	if (value[valueCounter].toString().match(/\W/) == null) {
 		value[valueCounter] += ".";
 		screenOutMain.textContent += ".";
-		screenOutBot.textContent = eval(value.join(""));
 	}
 });
 
@@ -112,65 +111,56 @@ btnClear.addEventListener("mousedown", handleMouseDown);
 btnEqual.addEventListener("click", () => {
 	screenOutMain.textContent = eval(value.join(""));
 	screenOutBot.textContent = "";
+	value.length = 0;
+	valueCounter = 0;
+	value[valueCounter] = "";
 });
 
 btnAdd.addEventListener("click", () => {
-	if (value[valueCounter].charAt(0) !== "" || value[valueCounter].charAt(0) !== "."
-		&& value[valueCounter-1].charAt(0) !== "+" 
-		&& value[valueCounter-1].charAt(0) !== "-" 
-		&& value[valueCounter-1].charAt(0) !== "/" 
-		&& value[valueCounter-1].charAt(0) !== "*") {
+	if (value[valueCounter] !== undefined && value[valueCounter] !== "."
+		&& value[valueCounter] !== "+" && value[valueCounter] !== "-"
+		&& value[valueCounter] !== "/" && value[valueCounter] !== "*") {
 		++valueCounter;
 		value[valueCounter] = "";
 		value[valueCounter] += "+";
 		screenOutMain.textContent += " + ";
-		++valueCounter;
-		value[valueCounter] = "";
+		++valueCounter;		
 	}
 });
 
 btnSub.addEventListener("click", () => {
-	if (value[valueCounter].charAt(0) !== "" || value[valueCounter].charAt(0) !== "."
-		&& value[valueCounter-1].charAt(0) !== "+" 
-		&& value[valueCounter-1].charAt(0) !== "-" 
-		&& value[valueCounter-1].charAt(0) !== "/" 
-		&& value[valueCounter-1].charAt(0) !== "*") {
+	if (value[valueCounter] !== undefined && value[valueCounter] !== "."
+		&& value[valueCounter] !== "+" && value[valueCounter] !== "-"
+		&& value[valueCounter] !== "/" && value[valueCounter] !== "*") {
 		++valueCounter;
 		value[valueCounter] = "";
 		value[valueCounter] += "-";
 		screenOutMain.textContent += " - ";
-		++valueCounter;
-		value[valueCounter] = "";
+		++valueCounter;		
 	}
 });
 
 btnDiv.addEventListener("click", () => {
-	if (value[valueCounter].charAt(0) !== "" || value[valueCounter].charAt(0) !== "."
-		&& value[valueCounter-1].charAt(0) !== "+" 
-		&& value[valueCounter-1].charAt(0) !== "-" 
-		&& value[valueCounter-1].charAt(0) !== "/" 
-		&& value[valueCounter-1].charAt(0) !== "*") {
+	if (value[valueCounter] !== undefined && value[valueCounter] !== "."
+		&& value[valueCounter] !== "+" && value[valueCounter] !== "-"
+		&& value[valueCounter] !== "/" && value[valueCounter] !== "*") {
 		++valueCounter;
 		value[valueCounter] = "";
 		value[valueCounter] += "/";
 		screenOutMain.textContent += " / ";
-		++valueCounter;
-		value[valueCounter] = "";
+		++valueCounter;	
 	}
 });
 
 btnMult.addEventListener("click", () => {
-	if (value[valueCounter].charAt(0) !== "" || value[valueCounter].charAt(0) !== "."
-		&& value[valueCounter-1].charAt(0) !== "+" 
-		&& value[valueCounter-1].charAt(0) !== "-" 
-		&& value[valueCounter-1].charAt(0) !== "/" 
-		&& value[valueCounter-1].charAt(0) !== "*") {
+	if (value[valueCounter] !== undefined && value[valueCounter] !== "."
+		&& value[valueCounter] !== "+" && value[valueCounter] !== "-"
+		&& value[valueCounter] !== "/" && value[valueCounter] !== "*") {
 		++valueCounter;
 		value[valueCounter] = "";
 		value[valueCounter] += "*";
 		screenOutMain.textContent += " * ";
-		++valueCounter;
-		value[valueCounter] = "";
+		++valueCounter;	
 	}
 });
 
@@ -202,7 +192,11 @@ function initialCheck() {
 }
 
 function botScreenFunc() {
-	return eval(value.join(""));
+	if (eval(value.join("")) === NaN) {
+		return "Error";
+	} else {
+		return eval(value.join(""));
+	}
 }
 
 function handleMouseDown() {

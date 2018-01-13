@@ -59,12 +59,37 @@ body {
 	color: #00374E;
 }
 
-#screenOutMain {
+#topScreenBox {
 	grid-area: 2 / 1 / 4 / 11;
-	display: inline-grid;
-	justify-content: right;
-	align-self: center;
-	padding-right: 25px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+#screenOutMain {
+	font-size: 50px;
+	padding-right: 5px;
+}
+
+#textCursor:after {
+	content: " ";
+	width: 2px;
+	height: 52px;
+	background: #00374E;
+	opacity: 0;
+	display: inline-flex;
+	animation: blink 1s linear infinite alternate;
+	margin-right: 25px;
+}
+
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
 
 #screenOutBot {
@@ -72,7 +97,7 @@ body {
 	display: inline-grid;
 	justify-content: right;
 	align-self: center;
-	padding-right: 25px;
+	padding-right: 30px;
 }
 
 .btnBox {

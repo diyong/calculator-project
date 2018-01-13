@@ -1,3 +1,5 @@
+const keys = Array.from(document.querySelectorAll(".numeric")); // part of the keydown experiment
+
 const btn0 = document.querySelector("#btn0");
 const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
@@ -26,9 +28,33 @@ let isDown = false,
 	target,
 	longTID;
 
-window.addEventListener("mouseup", handleMouseUp);
+const clickEvent = new MouseEvent("click", { // part of the keydown experiment
+	view: window,
+	bubbles: true,
+	cancelable: true
+});
 
-// Need to work on: btn0
+window.addEventListener("mouseup", handleMouseUp);
+window.addEventListener("keydown", pressKey); // keydown experiment
+
+keys.forEach(key => key.addEventListener("transitionend", removeTransition)); // keydown experiment
+
+function pressKey(e) { // keydown experiment
+	const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
+
+	if (key == 48) {
+		document.getElementById("btn0").click(y);
+	} else if (key == 49) {
+		document.getElementById("btn1").click(x);
+	}
+
+	key.classList.add("pressed");
+}
+
+function removeTransition(e) { // keydown experiment
+	if (e.propertyName !== "transform") return;
+	e.target.classList.remove("pressed");
+}
 
 btn0.addEventListener("click", () => {
 	initialCheck();
@@ -173,17 +199,18 @@ function initialCheck() {
 		value[valueCounter] = "";
 	}
 
-	if (valueCounter == 0 && value[valueCounter] == "") {
-		screenOutMain.textContent = "0";
+	if (valueCounter < 0) {
+		valueCounter = 0;
 	}
 }
 
+// Need to figure out a way to put a custom message if NaN
 function botScreenFunc() {
 	let x = eval(value.join(""));
 
 	if (x == NaN) {
 		return "Error";
-	} else {
+	} else if (x !== NaN) {
 		return eval(value.join(""));
 	}
 }
@@ -238,6 +265,6 @@ function longPress() {
 	value.length = 0;
 	valueCounter = 0;
 	value[valueCounter] = "";
-	screenOutMain.textContent = "0";
+	screenOutMain.textContent = "";
 	screenOutBot.textContent = "";
 }

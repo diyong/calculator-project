@@ -113,6 +113,13 @@ body {
 	border: 1px solid #E6E6E6;
 	background-color: transparent;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
+	transition: all .07s ease;
+}
+
+.pressed {
+	transform: scale(1.1);
+	border-color: #ffc600;
+	box-shadow: 0 0 1rem #ffc600;
 }
 
 .button h2 {

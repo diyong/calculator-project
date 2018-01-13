@@ -28,11 +28,15 @@ let isDown = false,
 
 window.addEventListener("mouseup", handleMouseUp);
 
+// Need to work on: btn0
+
 btn0.addEventListener("click", () => {
 	initialCheck();
-	value[valueCounter] += "0";
-	screenOutMain.textContent += "0";
-	screenOutBot.textContent = botScreenFunc();
+	if (value[valueCounter] !== "") {
+		value[valueCounter] += "0";
+		screenOutMain.textContent += "0";
+		screenOutBot.textContent = botScreenFunc();		
+	}
 });
 
 btn1.addEventListener("click", () => {
@@ -117,7 +121,7 @@ btnEqual.addEventListener("click", () => {
 });
 
 btnAdd.addEventListener("click", () => {
-	if (value[valueCounter] !== undefined && value[valueCounter] !== "."
+	if (valueCounter !== "" && value[valueCounter] !== undefined && value[valueCounter] !== "."
 		&& value[valueCounter] !== "+" && value[valueCounter] !== "-"
 		&& value[valueCounter] !== "/" && value[valueCounter] !== "*") {
 		++valueCounter;
@@ -129,7 +133,7 @@ btnAdd.addEventListener("click", () => {
 });
 
 btnSub.addEventListener("click", () => {
-	if (value[valueCounter] !== undefined && value[valueCounter] !== "."
+	if (valueCounter !== "" && value[valueCounter] !== undefined && value[valueCounter] !== "."
 		&& value[valueCounter] !== "+" && value[valueCounter] !== "-"
 		&& value[valueCounter] !== "/" && value[valueCounter] !== "*") {
 		++valueCounter;
@@ -141,7 +145,7 @@ btnSub.addEventListener("click", () => {
 });
 
 btnDiv.addEventListener("click", () => {
-	if (value[valueCounter] !== undefined && value[valueCounter] !== "."
+	if (valueCounter !== "" && value[valueCounter] !== undefined && value[valueCounter] !== "."
 		&& value[valueCounter] !== "+" && value[valueCounter] !== "-"
 		&& value[valueCounter] !== "/" && value[valueCounter] !== "*") {
 		++valueCounter;
@@ -153,7 +157,7 @@ btnDiv.addEventListener("click", () => {
 });
 
 btnMult.addEventListener("click", () => {
-	if (value[valueCounter] !== undefined && value[valueCounter] !== "."
+	if (valueCounter !== "" && value[valueCounter] !== undefined && value[valueCounter] !== "."
 		&& value[valueCounter] !== "+" && value[valueCounter] !== "-"
 		&& value[valueCounter] !== "/" && value[valueCounter] !== "*") {
 		++valueCounter;
@@ -164,38 +168,45 @@ btnMult.addEventListener("click", () => {
 	}
 });
 
-// These operator functions might not be necessary
-function addition(x, y) {
-	return x + y;
-}
-
-function subtraction(x, y) {
-	return x - y;
-}
-
-function multiplication(x, y) {
-	return x * y;
-}
-
-function division(x, y) {
-	return x / y;
-}
-
 function initialCheck() {
-	if (screenOutMain.textContent == "0") {
-		screenOutMain.textContent = "";
-	}
-
 	if (value[valueCounter] == undefined) {
 		value[valueCounter] = "";
+	}
+
+	if (valueCounter == 0 && value[valueCounter] == "") {
+		screenOutMain.textContent = "0";
 	}
 }
 
 function botScreenFunc() {
-	if (eval(value.join("")) === NaN) {
+	let x = eval(value.join(""));
+
+	if (x == NaN) {
 		return "Error";
 	} else {
 		return eval(value.join(""));
+	}
+}
+
+function quickClear() {
+	if (value[valueCounter] !== "") {
+		value[valueCounter] = value[valueCounter].slice(0, -1);
+		screenMainQC();
+		screenOutBot.textContent = eval(value.join(""));	
+	} else if (value[valueCounter] == "") {
+		--valueCounter;
+		value[valueCounter] = value[valueCounter].slice(0, -1);
+		screenMainQC()
+		screenOutBot.textContent = eval(value.join(""));
+	}
+
+}
+
+function screenMainQC() {
+	if (screenOutMain.innerHTML.slice(-1) == " ") {
+		screenOutMain.textContent = screenOutMain.textContent.slice(0, -3);
+	} else {
+		screenOutMain.textContent = screenOutMain.textContent.slice(0, -1);
 	}
 }
 
@@ -204,7 +215,7 @@ function handleMouseDown() {
 	isLong = false;
 	target = this;
 	clearTimeout(longTID);
-	longTID = setTimeout(longPress.bind(this), 1250);
+	longTID = setTimeout(longPress.bind(this), 1000);
 }
 
 function handleMouseUp(e) {
@@ -217,7 +228,7 @@ function handleMouseUp(e) {
 	if (isDown) {
 		clearTimeout(longTID);
 		isDown = false;
-		// going to need a function which only clears the last number put in
+		quickClear();
 		target = null;
 	}
 }

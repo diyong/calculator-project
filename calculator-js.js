@@ -18,7 +18,8 @@ const btnMult = document.querySelector("#btnMult");
 let screenOutMain = document.querySelector("#screenOutMain");
 let screenOutBot = document.querySelector("#screenOutBot");
 
-let value = "";
+let value = [];
+let valueCounter = 0; 
 
 let isDown = false,
 	isLong = false,
@@ -29,118 +30,147 @@ window.addEventListener("mouseup", handleMouseUp);
 
 btn0.addEventListener("click", () => {
 	initialCheck();
-	value += "0";
+	value[valueCounter] += "0";
 	screenOutMain.textContent += "0";
-	screenOutBot.textContent = eval(value);
+	screenOutBot.textContent = botScreenFunc();
 });
 
 btn1.addEventListener("click", () => {
 	initialCheck();
-	value += "1";
+	value[valueCounter] += "1";
 	screenOutMain.textContent += "1";
-	screenOutBot.textContent = eval(value);
+	screenOutBot.textContent = botScreenFunc();
 });
 
 btn2.addEventListener("click", () => {
 	initialCheck();
-	value += "2";
+	value[valueCounter] += "2";
 	screenOutMain.textContent += "2";
-	screenOutBot.textContent = eval(value);
+	screenOutBot.textContent = botScreenFunc();
 });
 
 btn3.addEventListener("click", () => {
 	initialCheck();
-	value += "3";
+	value[valueCounter] += "3";
 	screenOutMain.textContent += "3";
-	screenOutBot.textContent = eval(value);
+	screenOutBot.textContent = botScreenFunc();
 });
 
 btn4.addEventListener("click", () => {
 	initialCheck();
-	value += "4";
+	value[valueCounter] += "4";
 	screenOutMain.textContent += "4";
-	screenOutBot.textContent = eval(value);
+	screenOutBot.textContent = botScreenFunc();
 });
 
 btn5.addEventListener("click", () => {
 	initialCheck();
-	value += "5";
+	value[valueCounter] += "5";
 	screenOutMain.textContent += "5";
-	screenOutBot.textContent = eval(value);
+	screenOutBot.textContent = botScreenFunc();
 });
 
 btn6.addEventListener("click", () => {
 	initialCheck();
-	value += "6";
+	value[valueCounter] += "6";
 	screenOutMain.textContent += "6";
-	screenOutBot.textContent = eval(value);
+	screenOutBot.textContent = botScreenFunc();
 });
 
 btn7.addEventListener("click", () => {
 	initialCheck();
-	value += "7";
+	value[valueCounter] += "7";
 	screenOutMain.textContent += "7";
-	screenOutBot.textContent = eval(value);
+	screenOutBot.textContent = botScreenFunc();
 });
 
 btn8.addEventListener("click", () => {
 	initialCheck();
-	value += "8";
+	value[valueCounter] += "8";
 	screenOutMain.textContent += "8";
-	screenOutBot.textContent = eval(value);
+	screenOutBot.textContent = botScreenFunc();
 });
 
 btn9.addEventListener("click", () => {
 	initialCheck();
-	value += "9";
+	value[valueCounter] += "9";
 	screenOutMain.textContent += "9";
-	screenOutBot.textContent = eval(value);
+	screenOutBot.textContent = botScreenFunc();
 });
 
 btnDecimal.addEventListener("click", () => {
 	initialCheck();
-	value += ".";
-	screenOutMain.textContent += ".";
-	screenOutBot.textContent = eval(value);
+	if (value[valueCounter].toString().match(/\W/) == null) {
+		value[valueCounter] += ".";
+		screenOutMain.textContent += ".";
+		screenOutBot.textContent = eval(value.join(""));
+	}
 });
 
 btnClear.addEventListener("mousedown", handleMouseDown);
 
 btnEqual.addEventListener("click", () => {
-	screenOutMain.textContent = eval(value);
+	screenOutMain.textContent = eval(value.join(""));
 	screenOutBot.textContent = "";
 });
-// Still need to add this in. Need to figure out how to store operators
 
 btnAdd.addEventListener("click", () => {
-	if (value.charAt(0) !== "") {
-		value += "+";
+	if (value[valueCounter].charAt(0) !== "" || value[valueCounter].charAt(0) !== "."
+		&& value[valueCounter-1].charAt(0) !== "+" 
+		&& value[valueCounter-1].charAt(0) !== "-" 
+		&& value[valueCounter-1].charAt(0) !== "/" 
+		&& value[valueCounter-1].charAt(0) !== "*") {
+		++valueCounter;
+		value[valueCounter] = "";
+		value[valueCounter] += "+";
 		screenOutMain.textContent += " + ";
-		screenOutBot.textContent = eval(value);
+		++valueCounter;
+		value[valueCounter] = "";
 	}
 });
 
 btnSub.addEventListener("click", () => {
-	if (value.charAt(0) !== "") {
-		value += "-";
+	if (value[valueCounter].charAt(0) !== "" || value[valueCounter].charAt(0) !== "."
+		&& value[valueCounter-1].charAt(0) !== "+" 
+		&& value[valueCounter-1].charAt(0) !== "-" 
+		&& value[valueCounter-1].charAt(0) !== "/" 
+		&& value[valueCounter-1].charAt(0) !== "*") {
+		++valueCounter;
+		value[valueCounter] = "";
+		value[valueCounter] += "-";
 		screenOutMain.textContent += " - ";
-		screenOutBot.textContent = eval(value);
+		++valueCounter;
+		value[valueCounter] = "";
 	}
 });
 
 btnDiv.addEventListener("click", () => {
-	if (value.charAt(0) !== "") {
-		value += "/";
+	if (value[valueCounter].charAt(0) !== "" || value[valueCounter].charAt(0) !== "."
+		&& value[valueCounter-1].charAt(0) !== "+" 
+		&& value[valueCounter-1].charAt(0) !== "-" 
+		&& value[valueCounter-1].charAt(0) !== "/" 
+		&& value[valueCounter-1].charAt(0) !== "*") {
+		++valueCounter;
+		value[valueCounter] = "";
+		value[valueCounter] += "/";
 		screenOutMain.textContent += " / ";
-		screenOutBot.textContent = eval(value);
+		++valueCounter;
+		value[valueCounter] = "";
 	}
 });
 
 btnMult.addEventListener("click", () => {
-	if (value.charAt(0) !== "") {
-		value += "*";
+	if (value[valueCounter].charAt(0) !== "" || value[valueCounter].charAt(0) !== "."
+		&& value[valueCounter-1].charAt(0) !== "+" 
+		&& value[valueCounter-1].charAt(0) !== "-" 
+		&& value[valueCounter-1].charAt(0) !== "/" 
+		&& value[valueCounter-1].charAt(0) !== "*") {
+		++valueCounter;
+		value[valueCounter] = "";
+		value[valueCounter] += "*";
 		screenOutMain.textContent += " * ";
-		screenOutBot.textContent = eval(value);
+		++valueCounter;
+		value[valueCounter] = "";
 	}
 });
 
@@ -166,9 +196,13 @@ function initialCheck() {
 		screenOutMain.textContent = "";
 	}
 
-	if (value == undefined) {
+	if (value[valueCounter] == undefined) {
 		value[valueCounter] = "";
 	}
+}
+
+function botScreenFunc() {
+	return eval(value.join(""));
 }
 
 function handleMouseDown() {
@@ -176,7 +210,7 @@ function handleMouseDown() {
 	isLong = false;
 	target = this;
 	clearTimeout(longTID);
-	longTID = setTimeout(longPress.bind(this), 1500);
+	longTID = setTimeout(longPress.bind(this), 1250);
 }
 
 function handleMouseUp(e) {
@@ -196,7 +230,9 @@ function handleMouseUp(e) {
 
 function longPress() {
 	isLong = true;
-	value = "";
+	value.length = 0;
+	valueCounter = 0;
+	value[valueCounter] = "";
 	screenOutMain.textContent = "0";
 	screenOutBot.textContent = "";
 }

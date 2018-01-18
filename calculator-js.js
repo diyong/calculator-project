@@ -1,4 +1,4 @@
-const keys = Array.from(document.querySelectorAll(".numeric")); // part of the keydown experiment
+const keys = Array.from(document.querySelectorAll(".numeric")); 
 
 const btn0 = document.querySelector("#btn0");
 const btn1 = document.querySelector("#btn1");
@@ -28,30 +28,56 @@ let isDown = false,
 	target,
 	longTID;
 
-const clickEvent = new MouseEvent("click", { // part of the keydown experiment
-	view: window,
-	bubbles: true,
-	cancelable: true
-});
-
 window.addEventListener("mouseup", handleMouseUp);
-window.addEventListener("keydown", pressKey); // keydown experiment
+window.addEventListener("keydown", pressKey); 
 
-keys.forEach(key => key.addEventListener("transitionend", removeTransition)); // keydown experiment
+keys.forEach(key => key.addEventListener("transitionend", removeTransition)); 
 
-function pressKey(e) { // keydown experiment
+function pressKey(e) { 
 	const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
 
-	if (key == 48) {
-		document.getElementById("btn0").click(y);
-	} else if (key == 49) {
-		document.getElementById("btn1").click(x);
+	if (e.keyCode == 96) {
+		document.getElementById("btn0").click();
+	} else if (e.keyCode == 97) {
+		document.getElementById("btn1").click();
+	} else if (e.keyCode == 98) {
+		document.getElementById("btn2").click();
+	} else if (e.keyCode == 99) {
+		document.getElementById("btn3").click();
+	} else if (e.keyCode == 100) {
+		document.getElementById("btn4").click();
+	} else if (e.keyCode == 101) {
+		document.getElementById("btn5").click();
+	} else if (e.keyCode == 102) {
+		document.getElementById("btn6").click();
+	} else if (e.keyCode == 103) {
+		document.getElementById("btn7").click();
+	} else if (e.keyCode == 104) {
+		document.getElementById("btn8").click();
+	} else if (e.keyCode == 105) {
+		document.getElementById("btn9").click();
+	} else if (e.keyCode == 110) {
+		document.getElementById("btnDecimal").click();
+	} else if (e.keyCode == 57) {
+		document.getElementById("btn9").click();
+	} else if (e.keyCode == 8) {
+		document.getElementById("btnClear").click();
+	} else if (e.keyCode == 13) {
+		document.getElementById("btnEqual").click();
+	} else if (e.keyCode == 107) {
+		document.getElementById("btnAdd").click();
+	} else if (e.keyCode == 109) {
+		document.getElementById("btnSub").click();
+	} else if (e.keyCode == 106) {
+		document.getElementById("btnMult").click();
+	} else if (e.keyCode == 111) {
+		document.getElementById("btnDiv").click();
 	}
 
 	key.classList.add("pressed");
 }
 
-function removeTransition(e) { // keydown experiment
+function removeTransition(e) { 
 	if (e.propertyName !== "transform") return;
 	e.target.classList.remove("pressed");
 }

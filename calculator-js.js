@@ -71,6 +71,8 @@ function pressKey(e) {
 		document.getElementById("btnMult").click();
 	} else if (e.keyCode == 111) {
 		document.getElementById("btnDiv").click();
+	} else if (e.keyCode == 46) {
+		document.getElementById("btnClear").click();
 	}
 
 	key.classList.add("pressed");
@@ -164,7 +166,7 @@ btnDecimal.addEventListener("click", () => {
 btnClear.addEventListener("mousedown", handleMouseDown);
 
 btnEqual.addEventListener("click", () => {
-	equalValue = eval(value.join("")).toString();
+	equalValue = botScreenFunc();
 	screenOutMain.textContent = equalValue;
 	screenOutBot.textContent = "";
 	value.length = 0;
@@ -235,13 +237,12 @@ function initialCheck() {
 	}
 }
 
-// Need to figure out a way to put a custom message if NaN
 function botScreenFunc() {
 	let x = eval(value.join(""));
 
-	if (x == NaN) {
+	if (isNaN(x)) {
 		return "Error";
-	} else if (x !== NaN) {
+	} else {
 		return eval(value.join(""));
 	}
 }

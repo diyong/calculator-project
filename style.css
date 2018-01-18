@@ -12,6 +12,7 @@
 
 body {
 	background-image: url(light-bg.jpg);
+	background-repeat: no-repeat;
 	background-color: rgb(84, 207, 229);
 	background-repeat: no-repeat;
 }

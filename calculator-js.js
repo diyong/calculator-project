@@ -22,6 +22,7 @@ let screenOutBot = document.querySelector("#screenOutBot");
 
 let value = [];
 let valueCounter = 0; 
+let equalValue = "";
 
 let isDown = false,
 	isLong = false,
@@ -163,7 +164,8 @@ btnDecimal.addEventListener("click", () => {
 btnClear.addEventListener("mousedown", handleMouseDown);
 
 btnEqual.addEventListener("click", () => {
-	screenOutMain.textContent = eval(value.join(""));
+	equalValue = eval(value.join("")).toString();
+	screenOutMain.textContent = equalValue;
 	screenOutBot.textContent = "";
 	value.length = 0;
 	valueCounter = 0;
@@ -225,6 +227,11 @@ function initialCheck() {
 
 	if (valueCounter < 0) {
 		valueCounter = 0;
+	}
+
+	if (screenOutMain.textContent == equalValue) {
+		screenOutMain.textContent = "";
+		equalValue = "";
 	}
 }
 

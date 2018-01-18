@@ -60,8 +60,6 @@ function pressKey(e) {
 		document.getElementById("btnDecimal").click();
 	} else if (e.keyCode == 57) {
 		document.getElementById("btn9").click();
-	} else if (e.keyCode == 8) {
-		document.getElementById("btnClear").click();
 	} else if (e.keyCode == 13) {
 		document.getElementById("btnEqual").click();
 	} else if (e.keyCode == 107) {

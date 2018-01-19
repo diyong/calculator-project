@@ -72,7 +72,7 @@ function pressKey(e) {
 	} else if (e.keyCode == 111) {
 		document.getElementById("btnDiv").click();
 	} else if (e.keyCode == 46) {
-		document.getElementById("btnClear").click();
+		quickClear();
 	}
 
 	key.classList.add("pressed");
